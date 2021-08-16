@@ -114,3 +114,4 @@ C:\Users\mintee\Code\Projects\aspnet-building-web-apis\bin\Thinktecture.Identity
 C:\Users\mintee\Code\Projects\aspnet-building-web-apis\obj\Debug\ExploreCalifornia.csproj.CopyComplete
 C:\Users\mintee\Code\Projects\aspnet-building-web-apis\obj\Debug\ExploreCalifornia.dll
 C:\Users\mintee\Code\Projects\aspnet-building-web-apis\obj\Debug\ExploreCalifornia.pdb
+C:\Users\mintee\Code\Projects\aspnet-building-web-apis\obj\Debug\ExploreCalifornia.csproj.AssemblyReference.cache

@@ -27,6 +27,8 @@ namespace ExploreCalifornia
         {
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
 
+            // <ACTION> /api/<Name>Controller
+            // GET /api/order -> OrderController.GetOrders()
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
