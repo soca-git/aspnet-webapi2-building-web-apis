@@ -13,37 +13,51 @@ namespace ExploreCalifornia.Controllers
     {
         private ExploreCaliforniaDbContext _exploreCaliforniaDbContext = new ExploreCaliforniaDbContext();
 
-        // GET /api/order
+        // GET /api/tour
         public List<Tour> Get()
         {
-            var query = _exploreCaliforniaDbContext.Tours.AsQueryable();
-
-            // Note:
-            // Web API will automatically serialize the list object into JSON.
+            IQueryable<Tour> query = _exploreCaliforniaDbContext.Tours.AsQueryable();
+            // Note; Web API will automatically serialize the list object into JSON.
             return query.ToList();
             // Returns string "Get" in reponse body.
             // return Ok("Post"); (IHttpActionResult type)
         }
 
-        // POST /api/order
-        public IHttpActionResult Post()
+        // GET /api/tour?freeOnly=true
+        public List<Tour> Get(bool freeOnly)
         {
-            return Ok("Post");
+            IQueryable<Tour> query = _exploreCaliforniaDbContext.Tours.AsQueryable();
+            if (freeOnly)
+            {
+                // 0.0m -> decimal type.
+                query = query.Where(x => x.Price == 0.0m);
+            }
+            // Note; Web API will automatically serialize the list object into JSON.
+            return query.ToList();
         }
 
-        // PUT /api/order
-        public IHttpActionResult Put()
+        // POST /api/tour
+        public List<Tour> PostSearch(TourSearchRequestDto request)
         {
-            return Ok("Put");
+            IQueryable<Tour> query = _exploreCaliforniaDbContext.Tours.AsQueryable()
+                .Where(x => x.Price >= request.MinPrice && x.Price <= request.MaxPrice);
+            // Note; Web API will automatically serialize the list object into JSON.
+            return query.ToList();
         }
 
-        // PATCH /api/order
+        // PUT /api/tour
+        public IHttpActionResult Put(int id, Tour tour)
+        {
+            return Ok($"Received: {id}; {tour.Name}");
+        }
+
+        // PATCH /api/tour
         public IHttpActionResult Patch()
         {
             return Ok("Patch");
         }
 
-        // DELETE /api/order
+        // DELETE /api/tour
         public IHttpActionResult Delete()
         {
             return Ok("Delete");
