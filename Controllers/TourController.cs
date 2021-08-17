@@ -24,7 +24,10 @@ namespace ExploreCalifornia.Controllers
         }
 
         // GET /api/tour?freeOnly=true
-        public List<Tour> Get(bool freeOnly)
+        // Simple data type parameters are bound from URI through Web API binding conventions.
+        // These default binding conventions can be overridden/explicitly specified through [FromUri] and [FromBody] attributes.
+        [HttpGet]
+        public List<Tour> Get([FromUri]bool freeOnly)
         {
             IQueryable<Tour> query = _exploreCaliforniaDbContext.Tours.AsQueryable();
             if (freeOnly)
@@ -37,7 +40,14 @@ namespace ExploreCalifornia.Controllers
         }
 
         // POST /api/tour
-        public List<Tour> PostSearch(TourSearchRequestDto request)
+        // Parameter is bound from Body through Web API binding conventions.
+        // Web API binds non-simple types from the body by default.
+        // These default binding conventions can be explicitly specified/overridden through [FromUri] and [FromBody] attributes.
+        // The method name PostSearch was required to start with 'Post' in order for it to bind to a POST request.
+        // This default naming convention can be ignored by using Web API HTTP verb attributes.
+        // These verb attributes allow explicit definition of what HTTP verb this method should bind to,
+        [HttpPost]
+        public List<Tour> SearchTours([FromBody]TourSearchRequestDto request)
         {
             IQueryable<Tour> query = _exploreCaliforniaDbContext.Tours.AsQueryable()
                 .Where(x => x.Price >= request.MinPrice && x.Price <= request.MaxPrice);
@@ -45,7 +55,10 @@ namespace ExploreCalifornia.Controllers
             return query.ToList();
         }
 
-        // PUT /api/tour
+        // PUT /api/tour/1
+        // Id parameter is bound from URI.
+        // Tour parameter is bound from the body.
+        [HttpPut]
         public IHttpActionResult Put(int id, Tour tour)
         {
             return Ok($"Received: {id}; {tour.Name}");
