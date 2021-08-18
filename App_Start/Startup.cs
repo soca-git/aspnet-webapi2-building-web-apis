@@ -21,8 +21,7 @@ namespace ExploreCalifornia
             var config = Startup.HttpConfiguration;
             ConfigureWebApi(app, config);
         }
-
-        
+                
         private static void ConfigureWebApi(IAppBuilder app, HttpConfiguration config)
         {
             // By default, Web API uses a JSON serializer when handling data.

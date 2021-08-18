@@ -47,22 +47,22 @@ namespace ExploreCalifornia.Controllers
         // This default naming convention can be ignored by using Web API HTTP verb attributes.
         // These verb attributes allow explicit definition of what HTTP verb this method should bind to,
         [HttpPost]
-        public IHttpActionResult SearchTours([FromBody]TourSearchRequestDto request)
+        public IHttpActionResult SearchTours([FromBody]TourSearchRequestDto requestDto)
         {
-            if (request.MinPrice < 0 ||  request.MaxPrice < 0)
+            if (requestDto.MinPrice < 0 ||  requestDto.MaxPrice < 0)
             {
                 // Returns 400 response with specified message in response body.
                 return BadRequest("Specified price limits must be greater than 0.");
             }
 
-            if (request.MinPrice > request.MaxPrice)
+            if (requestDto.MinPrice > requestDto.MaxPrice)
             {
                 // Returns 400 response with specified message in response body.
                 return BadRequest("MinPrice must be less than MaxPrice.");
             }
 
             IQueryable<Tour> query = _exploreCaliforniaDbContext.Tours.AsQueryable()
-                .Where(x => x.Price >= request.MinPrice && x.Price <= request.MaxPrice);
+                .Where(x => x.Price >= requestDto.MinPrice && x.Price <= requestDto.MaxPrice);
 
             // Returns 200 response with JSON object containing query result(s).
             // Note; Web API will automatically serialize the list object into JSON.
@@ -78,9 +78,9 @@ namespace ExploreCalifornia.Controllers
         // This achieves the same results as the previous method which uses IHttpActionResult.
         // The potential drawbacks here are exceptions are being used to handle the flow or the application,
         // which is generally not seen as good practice. It can also complicate logging and global exception handling.
-        public List<Tour> SearchToursWithExceptions([FromBody] TourSearchRequestDto request)
+        public List<Tour> SearchToursWithExceptions([FromBody] TourSearchRequestDto requestDto)
         {
-            if (request.MinPrice < 0 || request.MaxPrice < 0)
+            if (requestDto.MinPrice < 0 || requestDto.MaxPrice < 0)
             {
                 // Returns 400 response with specified message in response body.
                 // In order for HttpResponseException to run during debugging, it needs to be added as an exception to
@@ -94,7 +94,7 @@ namespace ExploreCalifornia.Controllers
                 });
             }
 
-            if (request.MinPrice > request.MaxPrice)
+            if (requestDto.MinPrice > requestDto.MaxPrice)
             {
                 // Returns 400 response with specified message in response body.
                 throw new HttpResponseException(
@@ -107,7 +107,7 @@ namespace ExploreCalifornia.Controllers
             }
 
             IQueryable<Tour> query = _exploreCaliforniaDbContext.Tours.AsQueryable()
-                .Where(x => x.Price >= request.MinPrice && x.Price <= request.MaxPrice);
+                .Where(x => x.Price >= requestDto.MinPrice && x.Price <= requestDto.MaxPrice);
 
             // Returns 200 response with JSON object containing query result(s).
             // Note; Web API will automatically serialize the list object into JSON.
