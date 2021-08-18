@@ -25,7 +25,15 @@ namespace ExploreCalifornia
         
         private static void ConfigureWebApi(IAppBuilder app, HttpConfiguration config)
         {
+            // By default, Web API uses a JSON serializer when handling data.
+            // XML can be enabled through the following line.
+            // Now both JSON and XML can be returned, specified in the request through the Accept header.
+            config.Formatters.XmlFormatter.UseXmlSerializer = true;
+
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+
+            // Enable Web API route attributes
+            config.MapHttpAttributeRoutes();
 
             // <ACTION> /api/<Name>Controller
             // GET /api/order -> OrderController.GetOrders()
