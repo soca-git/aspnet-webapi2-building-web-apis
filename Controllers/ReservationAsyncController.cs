@@ -23,13 +23,13 @@ namespace ExploreCalifornia.Controllers
     {
         private ExploreCaliforniaDbContext db = new ExploreCaliforniaDbContext();
 
-        // GET: api/Reservation
+        // GET: api/ReservationAsync
         public IQueryable<Reservation> GetReservations()
         {
             return db.Reservations;
         }
 
-        // GET: api/Reservation/5
+        // GET: api/ReservationAsync/5
         [ResponseType(typeof(Reservation))]
         public async Task<IHttpActionResult> GetReservation(int id)
         {
@@ -42,7 +42,7 @@ namespace ExploreCalifornia.Controllers
             return Ok(reservation);
         }
 
-        // PUT: api/Reservation/5
+        // PUT: api/ReservationAsync/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutReservation(int id, Reservation reservation)
         {
@@ -77,7 +77,7 @@ namespace ExploreCalifornia.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Reservation
+        // POST: api/ReservationAsync
         [ResponseType(typeof(Reservation))]
         public async Task<IHttpActionResult> PostReservation(Reservation reservation)
         {
@@ -92,7 +92,7 @@ namespace ExploreCalifornia.Controllers
             return CreatedAtRoute("DefaultApi", new { id = reservation.ReservationId }, reservation);
         }
 
-        // DELETE: api/Reservation/5
+        // DELETE: api/ReservationAsync/5
         [ResponseType(typeof(Reservation))]
         public async Task<IHttpActionResult> DeleteReservation(int id)
         {
