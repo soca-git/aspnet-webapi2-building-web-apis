@@ -15,10 +15,22 @@ namespace ExploreCalifornia.Controllers
     {
         private ExploreCaliforniaDbContext _exploreCaliforniaDbContext = new ExploreCaliforniaDbContext();
 
-        // GET /api/tour
-        public List<Tour> Get()
+        // GET /api/v2/tour
+        //public List<Tour> GetTours()
+        public List<TourDto> GetTours()
         {
-            IQueryable<Tour> query = _exploreCaliforniaDbContext.Tours.AsQueryable();
+            // Since we are using a DTO, we map the database query to the DTO inside the Select statement.
+            IQueryable<TourDto> query = _exploreCaliforniaDbContext.Tours.AsQueryable()
+                .Select(
+                    x => new TourDto
+                    {
+                        // TourDTO -> x.Tour
+                        Name = x.Name,
+                        Description = x.Description,
+                        Price = x.Price
+                    }
+                );
+
             // Note; Web API will automatically serialize the list object into JSON.
             return query.ToList();
             // Returns string "Get" in reponse body.
@@ -29,7 +41,7 @@ namespace ExploreCalifornia.Controllers
         // Simple data type parameters are bound from URI through Web API binding conventions.
         // These default binding conventions can be overridden/explicitly specified through [FromUri] and [FromBody] attributes.
         [HttpGet]
-        public List<Tour> Get([FromUri] bool freeOnly)
+        public List<Tour> GetTours([FromUri] bool freeOnly)
         {
             IQueryable<Tour> query = _exploreCaliforniaDbContext.Tours.AsQueryable();
             if (freeOnly)
@@ -37,6 +49,7 @@ namespace ExploreCalifornia.Controllers
                 // 0.0m -> decimal type.
                 query = query.Where(x => x.Price == 0.0m);
             }
+
             // Note; Web API will automatically serialize the list object into JSON.
             return query.ToList();
         }
