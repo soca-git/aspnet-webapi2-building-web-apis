@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Owin;
 
+
+// OWIN Startup class.
 [assembly: OwinStartup(typeof(ExploreCalifornia.Startup))]
 namespace ExploreCalifornia
 {
@@ -34,11 +36,21 @@ namespace ExploreCalifornia
             // Enable Web API route attributes
             config.MapHttpAttributeRoutes();
 
-            // <ACTION> /api/<Name>Controller
+            // Default routing rule.
+            // <ACTION> /api/<Name>Controller/<optional_id>
             // GET /api/order -> OrderController.GetOrders()
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional },
+                // Added constraint to match id to any sequence of integers.
+                constraints: new { id =@"\d+" }
+            );
+
+            // Additional routing rule added for non-integers.
+            config.Routes.MapHttpRoute(
+                name: "DefaultNameApi",
+                routeTemplate: "api/{controller}/{name}",
                 defaults: new { id = RouteParameter.Optional }
             );
 

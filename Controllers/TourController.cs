@@ -39,6 +39,34 @@ namespace ExploreCalifornia.Controllers
             return query.ToList();
         }
 
+        // GET /api/tour/<id>
+        [HttpGet]
+        public Tour GetById(int id)
+        {
+            Tour tour = _exploreCaliforniaDbContext.Tours.AsQueryable()
+                .Where(x => x.TourId == id)
+                .FirstOrDefault();
+
+            // Note; Web API will automatically serialize the list object into JSON.
+            return tour;
+        }
+
+        // GET /api/tour/<name>
+        // This won't work using the default rule because {id} can be of any type.
+        // This means the request will actually go to the method above, not this one,
+        // since we don't differentiate the type of  {id} in the routing rule.
+        // This can be resolved by specifying a constraint on the rule and by adding an additional one for strings.
+        [HttpGet]
+        public Tour GetByName(string name)
+        {
+            Tour tour = _exploreCaliforniaDbContext.Tours.AsQueryable()
+                .Where(x => x.Name.Contains(name))
+                .FirstOrDefault();
+
+            // Note; Web API will automatically serialize the list object into JSON.
+            return tour;
+        }
+
         // POST /api/tour
         // Parameter is bound from Body through Web API binding conventions.
         // Web API binds non-simple types from the body by default.
@@ -72,12 +100,13 @@ namespace ExploreCalifornia.Controllers
             // (We are no longer restricted to returning List<Tour> only).
         }
 
-        [HttpPost]
-        [Route("api/v2/tour")]
+        // POST /api/v2/tour
         // HttpResponseExceptions in combination with the strongly typed return method (List<Tour>) can also be used (and are!).
         // This achieves the same results as the previous method which uses IHttpActionResult.
         // The potential drawbacks here are exceptions are being used to handle the flow or the application,
         // which is generally not seen as good practice. It can also complicate logging and global exception handling.
+        [HttpPost]
+        [Route("api/v2/tour")]
         public List<Tour> SearchToursWithExceptions([FromBody] TourSearchRequestDto requestDto)
         {
             if (requestDto.MinPrice < 0 || requestDto.MaxPrice < 0)
@@ -117,7 +146,7 @@ namespace ExploreCalifornia.Controllers
             // (We are no longer restricted to returning List<Tour> only).
         }
 
-        // PUT /api/tour/1
+        // PUT /api/tour/<id>
         // Id parameter is bound from URI.
         // Tour parameter is bound from the body.
         [HttpPut]
