@@ -33,7 +33,7 @@ namespace ExploreCalifornia
 
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
 
-            // Enable Web API route attributes
+            // Enable Web API route attributes.
             config.MapHttpAttributeRoutes();
 
             // Default routing rule.
@@ -41,18 +41,20 @@ namespace ExploreCalifornia
             // GET /api/order -> OrderController.GetOrders()
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional },
+                routeTemplate: "api/v2/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
                 // Added constraint to match id to any sequence of integers.
-                constraints: new { id =@"\d+" }
+                //constraints: new { id =@"\d+" } 
+                // (removed in favour of route attributes).
             );
 
             // Additional routing rule added for non-integers.
-            config.Routes.MapHttpRoute(
-                name: "DefaultNameApi",
-                routeTemplate: "api/{controller}/{name}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            // (removed in favour of route attributes).
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultNameApi",
+            //    routeTemplate: "api/{controller}/{name}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
 
             app.UseWebApi(config);
         }
