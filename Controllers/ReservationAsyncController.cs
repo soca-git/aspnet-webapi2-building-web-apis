@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ExploreCalifornia.Data;
@@ -15,9 +16,10 @@ using ExploreCalifornia.Data.Entities;
 // GENERATED CONTROLLER!
 // Controller generated using Add -> Controller -> Web API 2 Controller with actions, using Entity Framework.
 // To use Entity Framework we specify the ExploreCaliforniaDbContext and Reservation data entity.
+// The controller was also sepecified to use asynchronous actions.
 namespace ExploreCalifornia.Controllers
 {
-    public class ReservationController : ApiController
+    public class ReservationAsyncController : ApiController
     {
         private ExploreCaliforniaDbContext db = new ExploreCaliforniaDbContext();
 
@@ -29,9 +31,9 @@ namespace ExploreCalifornia.Controllers
 
         // GET: api/Reservation/5
         [ResponseType(typeof(Reservation))]
-        public IHttpActionResult GetReservation(int id)
+        public async Task<IHttpActionResult> GetReservation(int id)
         {
-            Reservation reservation = db.Reservations.Find(id);
+            Reservation reservation = await db.Reservations.FindAsync(id);
             if (reservation == null)
             {
                 return NotFound();
@@ -42,7 +44,7 @@ namespace ExploreCalifornia.Controllers
 
         // PUT: api/Reservation/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutReservation(int id, Reservation reservation)
+        public async Task<IHttpActionResult> PutReservation(int id, Reservation reservation)
         {
             if (!ModelState.IsValid)
             {
@@ -58,7 +60,7 @@ namespace ExploreCalifornia.Controllers
 
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -77,7 +79,7 @@ namespace ExploreCalifornia.Controllers
 
         // POST: api/Reservation
         [ResponseType(typeof(Reservation))]
-        public IHttpActionResult PostReservation(Reservation reservation)
+        public async Task<IHttpActionResult> PostReservation(Reservation reservation)
         {
             if (!ModelState.IsValid)
             {
@@ -85,23 +87,23 @@ namespace ExploreCalifornia.Controllers
             }
 
             db.Reservations.Add(reservation);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = reservation.ReservationId }, reservation);
         }
 
         // DELETE: api/Reservation/5
         [ResponseType(typeof(Reservation))]
-        public IHttpActionResult DeleteReservation(int id)
+        public async Task<IHttpActionResult> DeleteReservation(int id)
         {
-            Reservation reservation = db.Reservations.Find(id);
+            Reservation reservation = await db.Reservations.FindAsync(id);
             if (reservation == null)
             {
                 return NotFound();
             }
 
             db.Reservations.Remove(reservation);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
             return Ok(reservation);
         }
