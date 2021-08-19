@@ -4,6 +4,7 @@ using System.Web.Http.ExceptionHandling;
 using System.Web.Http.Routing;
 using ExploreCalifornia.Config;
 using ExploreCalifornia.Filters;
+using ExploreCalifornia.Loggers;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Newtonsoft.Json;
@@ -12,6 +13,7 @@ using Owin;
 
 
 // OWIN Startup class.
+// This class is used to configure various application settings.
 [assembly: OwinStartup(typeof(ExploreCalifornia.Startup))]
 namespace ExploreCalifornia
 {
@@ -31,9 +33,13 @@ namespace ExploreCalifornia
 
             ConfigureWebApi(app, config);
         }
-                
+        
+        // Configure Web API settings.
         private static void ConfigureWebApi(IAppBuilder app, HttpConfiguration config)
         {
+            // Replace the default ExceptionLogger class with the newly created one.
+            config.Services.Replace(typeof(IExceptionLogger), new UnhandledExceptionLogger());
+
             // Register a global exception filter, so that in runs on all controllers.
             config.Filters.Add(new DbUpdateExceptionFilterAttribute());
 

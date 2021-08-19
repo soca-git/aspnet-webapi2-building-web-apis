@@ -179,9 +179,11 @@
     <Compile Include="Data\ExploreCaliforniaDbContext.cs" />
     <Compile Include="Data\Entities\AuthorizedApp.cs" />
     <Compile Include="Data\Entities\Tour.cs" />
+    <Compile Include="Filters\DbUpdateExceptionFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Loggers\UnhandledExceptionLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
