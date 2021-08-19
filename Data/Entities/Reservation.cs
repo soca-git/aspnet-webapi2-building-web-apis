@@ -16,6 +16,7 @@ namespace ExploreCalifornia.Data.Entities
         [StringLength(15)]
         public string CustomerPhone { get; set; }
 
-
+        // Tour navigation property.
+        public Tour Tour { get; set; }
     }
 }

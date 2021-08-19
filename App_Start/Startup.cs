@@ -21,6 +21,13 @@ namespace ExploreCalifornia
         public void Configuration(IAppBuilder app)
         {
             var config = Startup.HttpConfiguration;
+
+            // "Message": "An error has occurred.",
+            // "ExceptionMessage": "Self referencing loop detected with type 'ExploreCalifornia.Data.Entities.Reservation'. Path '[0].Tour.Reservations'.",
+            // Ignore (set repeated objects to null) reference loops instead of throwing error.
+            var jsonSettings = config.Formatters.JsonFormatter.SerializerSettings;
+            jsonSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+
             ConfigureWebApi(app, config);
         }
                 

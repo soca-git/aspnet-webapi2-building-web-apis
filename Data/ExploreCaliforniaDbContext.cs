@@ -7,7 +7,8 @@ namespace ExploreCalifornia.Data
     {
         public ExploreCaliforniaDbContext() : base("name=ExploreCalifornia")
         {
-
+            // Disabled due to navigation properties on Tour & Reservation entities.
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         public virtual DbSet<AuthorizedApp> AuthorizedApps { get; set; }

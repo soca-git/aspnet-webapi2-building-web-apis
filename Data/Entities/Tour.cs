@@ -21,6 +21,7 @@ namespace ExploreCalifornia.Data.Entities
         [Column(TypeName = "varchar(MAX)")]
         public string Notes { get; set; }
 
-
+        // Reservation navigation property.
+        public List<Reservation> Reservations { get; set; }
     }
 }
