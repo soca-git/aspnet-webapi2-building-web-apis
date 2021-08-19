@@ -7,6 +7,7 @@ using ExploreCalifornia.Data;
 using ExploreCalifornia.Data.Entities;
 using ExploreCalifornia.DTOs;
 
+
 namespace ExploreCalifornia.Controllers
 {
     // Common route prefix for all routes in this controller.
@@ -17,6 +18,11 @@ namespace ExploreCalifornia.Controllers
 
         // GET /api/v2/tour
         //public List<Tour> GetTours()
+
+        /// <summary>
+        /// Queries a list of all tours from the database.
+        /// </summary>
+        /// <returns>List of all tours.</returns>
         public List<TourDto> GetTours()
         {
             // Since we are using a DTO, we map the database query to the DTO inside the Select statement.
@@ -40,6 +46,12 @@ namespace ExploreCalifornia.Controllers
         // GET /api/v2/tour?freeOnly=true
         // Simple data type parameters are bound from URI through Web API binding conventions.
         // These default binding conventions can be overridden/explicitly specified through [FromUri] and [FromBody] attributes.
+
+        /// <summary>
+        /// Queries a list of all tours from the database.
+        /// </summary>
+        /// <param name="freeOnly">Show free only tours?</param>
+        /// <returns>List of all matching tours.</returns>
         [HttpGet]
         public List<Tour> GetTours([FromUri] bool freeOnly)
         {

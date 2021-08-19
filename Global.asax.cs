@@ -7,6 +7,7 @@ namespace ExploreCalifornia
     {
         protected void Application_Start()
         {
+            // Register HelpPages areas.
             AreaRegistration.RegisterAllAreas();
         }
     }
