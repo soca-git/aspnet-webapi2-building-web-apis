@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using System.Web.Http.Routing;
 using ExploreCalifornia.Config;
+using ExploreCalifornia.ExceptionHandlers;
 using ExploreCalifornia.Filters;
 using ExploreCalifornia.Loggers;
 using Microsoft.Owin;
@@ -39,6 +40,9 @@ namespace ExploreCalifornia
         {
             // Replace the default ExceptionLogger class with the newly created one.
             config.Services.Replace(typeof(IExceptionLogger), new UnhandledExceptionLogger());
+
+            // Replace the default ExceptionHandler class with the newly created one.
+            config.Services.Replace(typeof(IExceptionHandler), new UnhandledExceptionHandler());
 
             // Register a global exception filter, so that in runs on all controllers.
             config.Filters.Add(new DbUpdateExceptionFilterAttribute());
