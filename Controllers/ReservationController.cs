@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -10,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using ExploreCalifornia.Data;
 using ExploreCalifornia.Data.Entities;
+using ExploreCalifornia.Filters;
 
 
 // GENERATED CONTROLLER!
@@ -17,6 +19,8 @@ using ExploreCalifornia.Data.Entities;
 // To use Entity Framework we specify the ExploreCaliforniaDbContext and Reservation data entity.
 namespace ExploreCalifornia.Controllers
 {
+    // Exception filter attributes can be added to the controller in order for it to apply to all controller methods.
+    // [DbUpdateExceptionFilter]
     public class ReservationController : ApiController
     {
         private ExploreCaliforniaDbContext db = new ExploreCaliforniaDbContext();
@@ -76,6 +80,7 @@ namespace ExploreCalifornia.Controllers
         }
 
         // POST: api/Reservation
+        [DbUpdateExceptionFilter]
         [ResponseType(typeof(Reservation))]
         public IHttpActionResult PostReservation(Reservation reservation)
         {
@@ -86,6 +91,35 @@ namespace ExploreCalifornia.Controllers
 
             db.Reservations.Add(reservation);
             db.SaveChanges();
+
+            // Wrap save changes in a try catch statement.
+            // Now an attempt to save a reservation with an existing id (which will throw an SQL exception)
+            // can be handled appropriately, with a suitable HttpResponseException,
+            //try
+            //{
+            //    db.SaveChanges();
+            //}
+            //catch (DbUpdateException dbUpdateException)
+            //{
+            //    // If the inner exception is not an SQL exception.
+            //    if (!(dbUpdateException?.InnerException is SqlException sqlException))
+            //    {
+            //        // Re-raise the exception caught originally (dbUpdateException).
+            //        throw;
+            //    }
+
+            //    // SQL Server docs: Unique constraint violation.
+            //    if (sqlException.Number == 2627)
+            //    {
+            //        // Throw an appropriate HttpResponseException (409 Conflict).
+            //        throw new HttpResponseException(HttpStatusCode.Conflict);
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
+            // (Replaced with an exception filter.
 
             return CreatedAtRoute("DefaultApi", new { id = reservation.ReservationId }, reservation);
         }

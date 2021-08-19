@@ -96,6 +96,8 @@ namespace ExploreCalifornia.Controllers
         [HttpPost]
         public IHttpActionResult SearchTours([FromBody] TourSearchRequestDto requestDto)
         {
+            // Handling exceptions can be done in the controller, but for larger applications with increasing amounts of 
+            // checks, the controllers would become bloated very quickly. Exception filters can be used to resolve this issue.
             if (requestDto.MinPrice < 0 || requestDto.MaxPrice < 0)
             {
                 // Returns 400 response with specified message in response body.

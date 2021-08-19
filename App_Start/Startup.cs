@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using System.Web.Http.Routing;
 using ExploreCalifornia.Config;
+using ExploreCalifornia.Filters;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Newtonsoft.Json;
@@ -33,6 +34,9 @@ namespace ExploreCalifornia
                 
         private static void ConfigureWebApi(IAppBuilder app, HttpConfiguration config)
         {
+            // Register a global exception filter, so that in runs on all controllers.
+            config.Filters.Add(new DbUpdateExceptionFilterAttribute());
+
             // By default, Web API uses a JSON serializer when handling data.
             // XML can be enabled through the following line.
             // Now both JSON and XML can be returned, specified in the request through the Accept header.
