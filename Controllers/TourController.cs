@@ -23,25 +23,25 @@ namespace ExploreCalifornia.Controllers
         /// Queries a list of all tours from the database.
         /// </summary>
         /// <returns>List of all tours.</returns>
-        public List<TourDto> GetTours()
-        {
-            // Since we are using a DTO, we map the database query to the DTO inside the Select statement.
-            IQueryable<TourDto> query = _exploreCaliforniaDbContext.Tours.AsQueryable()
-                .Select(
-                    x => new TourDto
-                    {
-                        // TourDTO -> x.Tour
-                        Name = x.Name,
-                        Description = x.Description,
-                        Price = x.Price
-                    }
-                );
+        //public List<TourDto> GetTours()
+        //{
+        //    // Since we are using a DTO, we map the database query to the DTO inside the Select statement.
+        //    IQueryable<TourDto> query = _exploreCaliforniaDbContext.Tours.AsQueryable()
+        //        .Select(
+        //            x => new TourDto
+        //            {
+        //                // TourDTO -> x.Tour
+        //                Name = x.Name,
+        //                Description = x.Description,
+        //                Price = x.Price
+        //            }
+        //        );
 
-            // Note; Web API will automatically serialize the list object into JSON.
-            return query.ToList();
-            // Returns string "Get" in reponse body.
-            // return Ok("Post"); (IHttpActionResult type)
-        }
+        //    // Note; Web API will automatically serialize the list object into JSON.
+        //    return query.ToList();
+        //    // Returns string "Get" in reponse body.
+        //    // return Ok("Post"); (IHttpActionResult type)
+        //}
 
         // GET /api/v2/tour?freeOnly=true
         // Simple data type parameters are bound from URI through Web API binding conventions.
