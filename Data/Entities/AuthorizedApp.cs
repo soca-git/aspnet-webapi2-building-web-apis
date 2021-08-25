@@ -4,6 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExploreCalifornia.Data.Entities
 {
+    // Sample tuple:
+    // INSERT INTO [ExploreCalifornia].[dbo].[AuthorizedApps]
+    // (Name, AppToken, AppSecret, TokenExpiration)
+    // VALUES
+    // ('SocaClient', 'reallyreallylongapplicationtoken', 'reallyreallylongsupersecrettoken', '2021-08-25 00:00:00.000');
     // AuthorizedClient/App
     public class AuthorizedApp
     {
