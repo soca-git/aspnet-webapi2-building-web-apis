@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExploreCalifornia.Data.Entities
 {
+    // AuthorizedClient/App
     public class AuthorizedApp
     {
         public int AuthorizedAppId { get; set; }

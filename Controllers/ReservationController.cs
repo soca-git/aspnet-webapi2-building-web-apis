@@ -27,6 +27,8 @@ namespace ExploreCalifornia.Controllers
         private ExploreCaliforniaDbContext db = new ExploreCaliforniaDbContext();
 
         // GET: api/Reservation
+        // This attribute allows the Authorize requirement to be ignored.
+        [AllowAnonymous]
         public IQueryable<Reservation> GetReservations()
         {
             return db.Reservations.Include(x => x.Tour);

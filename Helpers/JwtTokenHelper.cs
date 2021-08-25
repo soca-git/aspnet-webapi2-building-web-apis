@@ -12,20 +12,20 @@ namespace ExploreCalifornia.Helpers
 {
     public class JwtTokenHelper
     {
-        public TokenDto CreateToken(AuthorizedApp authApp)
+        public TokenDto CreateToken(AuthorizedApp authorizedClient)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var issuedAt = DateTime.UtcNow;
             var expires = DateTime.UtcNow.AddDays(30);
-            var claimsIdentity = new ClaimsIdentity(new GenericIdentity(authApp.Name), new[]
+            var claimsIdentity = new ClaimsIdentity(new GenericIdentity(authorizedClient.Name), new[]
             {
-                new Claim("appToken", authApp.AppToken, ClaimValueTypes.String),
+                new Claim("appToken", authorizedClient.AppToken, ClaimValueTypes.String),
             });
 
             var securityKey = new SymmetricSecurityKey(System.Text.Encoding.Default.GetBytes(GlobalConfig.Secret));
             var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
-            //create the token
+            // Create the token.
             var token = tokenHandler.CreateJwtSecurityToken(
                 GlobalConfig.Issuer,
                 GlobalConfig.Audience,

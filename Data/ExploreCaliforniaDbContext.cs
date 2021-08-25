@@ -17,7 +17,7 @@ namespace ExploreCalifornia.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            // AuthorizedApp
+            // AuthorizedClient/App
             modelBuilder.Entity<AuthorizedApp>()
                 .Property(e => e.AppToken)
                 .IsUnicode(false);

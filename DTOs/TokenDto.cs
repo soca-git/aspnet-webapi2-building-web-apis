@@ -1,5 +1,6 @@
 ﻿using System;
 
+
 namespace ExploreCalifornia.DTOs
 {
     public class TokenDto

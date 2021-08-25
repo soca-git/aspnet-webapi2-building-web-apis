@@ -202,6 +202,7 @@
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Data\Entities\Reservation.cs" />
     <Compile Include="DTOs\AuthorizeRequestDto.cs" />
+    <Compile Include="DTOs\AuthorizedClientDto.cs" />
     <Compile Include="DTOs\TokenDto.cs" />
     <Compile Include="DTOs\TourDto.cs" />
     <Compile Include="DTOs\TourSearchRequestDto.cs" />

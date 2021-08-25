@@ -41,7 +41,7 @@ namespace ExploreCalifornia
             ConfigureSwashbuckle(config);
 
             // Added JSON Web Tokens to Web API.
-            //ConfigureJwt(app);
+            ConfigureJwt(app);
         }
         
         // Configure Web API settings.
@@ -61,11 +61,13 @@ namespace ExploreCalifornia
             // Now both JSON and XML can be returned, specified in the request through the Accept header.
             config.Formatters.XmlFormatter.UseXmlSerializer = true;
 
-            // Add the AutoAuthentication handler to message handlers to enable request interception.
-            config.MessageHandlers.Add(new AutoAuthenticationHandler());
+            // Add the AutoAuthentication handler to message handlers to enable request interception on Authorize attribute endpoints.
+            // This is a quick way to authenticate all requests by creating dummy User identities.
+            //config.MessageHandlers.Add(new AutoAuthenticationHandler());
 
-            // Add the JWT handler to message handlers to enable request interception.
-            //config.MessageHandlers.Add(new TokenValidationHandler());
+            // Add the JWT handler to message handlers to enable request interception on Authorize attribute endpoints.
+            // This means that securing endpoints with JWT is as easy as adding the Authorize attribute to the endpoint!
+            config.MessageHandlers.Add(new TokenValidationHandler());
 
             // Enable Web API route attributes.
             config.MapHttpAttributeRoutes();
