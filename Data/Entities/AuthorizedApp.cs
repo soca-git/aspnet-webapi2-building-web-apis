@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace ExploreCalifornia.Data.Entities
 {
     public class AuthorizedApp

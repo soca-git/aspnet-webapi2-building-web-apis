@@ -8,6 +8,7 @@ using ExploreCalifornia.Filters;
 using ExploreCalifornia.Loggers;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Jwt;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Owin;
@@ -38,6 +39,9 @@ namespace ExploreCalifornia
             // Added Swagger to Web API.
             // http://localhost:52201/swagger/ui/index
             ConfigureSwashbuckle(config);
+
+            // Added JSON Web Tokens to Web API.
+            //ConfigureJwt(app);
         }
         
         // Configure Web API settings.
@@ -57,7 +61,11 @@ namespace ExploreCalifornia
             // Now both JSON and XML can be returned, specified in the request through the Accept header.
             config.Formatters.XmlFormatter.UseXmlSerializer = true;
 
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            // Add the AutoAuthentication handler to message handlers to enable request interception.
+            config.MessageHandlers.Add(new AutoAuthenticationHandler());
+
+            // Add the JWT handler to message handlers to enable request interception.
+            //config.MessageHandlers.Add(new TokenValidationHandler());
 
             // Enable Web API route attributes.
             config.MapHttpAttributeRoutes();
@@ -74,6 +82,9 @@ namespace ExploreCalifornia
                 // (removed in favour of route attributes).
             );
 
+            // Allow cross domain calls.
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+
             // Additional routing rule added for non-integers.
             // (removed in favour of route attributes).
             //config.Routes.MapHttpRoute(
@@ -84,6 +95,7 @@ namespace ExploreCalifornia
             app.UseWebApi(config);
         }
 
+        // Configure Swagger settings.
         private static void ConfigureSwashbuckle(HttpConfiguration config)
         {
             config.EnableSwagger(c => {
@@ -92,6 +104,23 @@ namespace ExploreCalifornia
                 // Include auto-generated XML comments from bin/ExploreCalifornia.xml
                 c.IncludeXmlComments($"{AppDomain.CurrentDomain.BaseDirectory}\\bin\\ExploreCalifornia.xml");
             }).EnableSwaggerUi();
+        }
+
+        // Configure JWT settings.
+        private static void ConfigureJwt(IAppBuilder app)
+        {
+            app.UseJwtBearerAuthentication(
+                new JwtBearerAuthenticationOptions
+                {
+                    AuthenticationMode = AuthenticationMode.Active,
+                    // Allowed audience "explore-cali-audience".
+                    AllowedAudiences = new[] { GlobalConfig.Audience },
+                    // Issuer "explore-cali-issuer" with Secret key "1a13faeb7d22432f808bacfea5c0f8fc58c9ff6ff14b46108df06960e4a3c1f9".
+                    IssuerSecurityKeyProviders = new IIssuerSecurityKeyProvider[]
+                    {
+                        new SymmetricKeyIssuerSecurityKeyProvider(GlobalConfig.Issuer, GlobalConfig.Secret)
+                    }
+                });
         }
     }
 }

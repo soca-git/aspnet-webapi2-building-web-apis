@@ -21,6 +21,7 @@ namespace ExploreCalifornia.Controllers
 {
     // Exception filter attributes can be added to the controller in order for it to apply to all controller methods.
     // [DbUpdateExceptionFilter]
+    [Authorize]
     public class ReservationController : ApiController
     {
         private ExploreCaliforniaDbContext db = new ExploreCaliforniaDbContext();
