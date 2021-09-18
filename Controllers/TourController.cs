@@ -6,6 +6,7 @@ using System.Web.Http;
 using ExploreCalifornia.Data;
 using ExploreCalifornia.Data.Entities;
 using ExploreCalifornia.DTOs;
+using ExploreCalifornia.MyAttribute;
 
 
 namespace ExploreCalifornia.Controllers
@@ -53,6 +54,7 @@ namespace ExploreCalifornia.Controllers
         /// <param name="freeOnly">Show free only tours?</param>
         /// <returns>List of all matching tours.</returns>
         [HttpGet]
+        [MyUri("test", "test/test/123", 0)]
         public List<Tour> GetTours([FromUri] bool freeOnly)
         {
             IQueryable<Tour> query = _exploreCaliforniaDbContext.Tours.AsQueryable();

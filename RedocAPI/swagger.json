@@ -1,0 +1,676 @@
+{
+  "x-generator": "NSwag v13.13.2.0 (NJsonSchema v10.5.2.0 (Newtonsoft.Json v11.0.0.0))",
+  "swagger": "2.0",
+  "info": {
+    "title": "My Title",
+    "version": "1.0.0"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v2/validation": {
+      "post": {
+        "tags": [
+          "Authorize"
+        ],
+        "operationId": "Authorize_TestDtoValidation",
+        "parameters": [
+          {
+            "name": "requestDto",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AuthorizeRequestDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
+    "/api/Authorize": {
+      "get": {
+        "tags": [
+          "Authorize"
+        ],
+        "operationId": "Authorize_GetAuthorizedApps",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AuthorizedClientDto"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Authorize"
+        ],
+        "operationId": "Authorize_Post",
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AuthorizeRequestDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
+    "/api/ReservationAsync": {
+      "get": {
+        "tags": [
+          "ReservationAsync"
+        ],
+        "operationId": "ReservationAsync_GetReservations",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Reservation"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ReservationAsync"
+        ],
+        "operationId": "ReservationAsync_PostReservation",
+        "parameters": [
+          {
+            "name": "reservation",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Reservation"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Reservation"
+            }
+          }
+        }
+      }
+    },
+    "/api/ReservationAsync/{id}": {
+      "get": {
+        "tags": [
+          "ReservationAsync"
+        ],
+        "operationId": "ReservationAsync_GetReservation",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "int32",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Reservation"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ReservationAsync"
+        ],
+        "operationId": "ReservationAsync_PutReservation",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "int32",
+            "x-nullable": false
+          },
+          {
+            "name": "reservation",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Reservation"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ReservationAsync"
+        ],
+        "operationId": "ReservationAsync_DeleteReservation",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "int32",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Reservation"
+            }
+          }
+        }
+      }
+    },
+    "/api/Reservation": {
+      "get": {
+        "tags": [
+          "Reservation"
+        ],
+        "operationId": "Reservation_GetReservations",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Reservation"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Reservation"
+        ],
+        "operationId": "Reservation_PostReservation",
+        "parameters": [
+          {
+            "name": "reservation",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Reservation"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Reservation"
+            }
+          }
+        }
+      }
+    },
+    "/api/Reservation/{id}": {
+      "get": {
+        "tags": [
+          "Reservation"
+        ],
+        "operationId": "Reservation_GetReservation",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "int32",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Reservation"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Reservation"
+        ],
+        "operationId": "Reservation_PutReservation",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "int32",
+            "x-nullable": false
+          },
+          {
+            "name": "reservation",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Reservation"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Reservation"
+        ],
+        "operationId": "Reservation_DeleteReservation",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "int32",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Reservation"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/tour/test/test/123": {
+      "get": {
+        "tags": [
+          "Tour"
+        ],
+        "summary": "Queries a list of all tours from the database.",
+        "operationId": "Tour_GetTours",
+        "parameters": [
+          {
+            "type": "boolean",
+            "name": "freeOnly",
+            "in": "query",
+            "required": true,
+            "description": "Show free only tours?",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "List of all matching tours.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Tour"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/tour/{id}": {
+      "get": {
+        "tags": [
+          "Tour"
+        ],
+        "operationId": "Tour_GetById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "int32",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Tour"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Tour"
+        ],
+        "operationId": "Tour_UpdateTour",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "int32",
+            "x-nullable": false
+          },
+          {
+            "name": "tour",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Tour"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Tour"
+        ],
+        "operationId": "Tour_Delete",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "int32",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/tour/{name}": {
+      "get": {
+        "tags": [
+          "Tour"
+        ],
+        "operationId": "Tour_GetByName",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Tour"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/tour": {
+      "post": {
+        "tags": [
+          "Tour"
+        ],
+        "operationId": "Tour_SearchTours",
+        "parameters": [
+          {
+            "name": "requestDto",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/TourSearchRequestDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Tour"
+        ],
+        "operationId": "Tour_Patch",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tour": {
+      "post": {
+        "tags": [
+          "Tour"
+        ],
+        "operationId": "Tour_SearchToursWithExceptions",
+        "parameters": [
+          {
+            "name": "requestDto",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/TourSearchRequestDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Tour"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AuthorizeRequestDto": {
+      "type": "object",
+      "required": [
+        "AppToken",
+        "AppSecret"
+      ],
+      "properties": {
+        "AppToken": {
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 32
+        },
+        "AppSecret": {
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 32
+        }
+      }
+    },
+    "AuthorizedClientDto": {
+      "type": "object",
+      "required": [
+        "TokenExpiration"
+      ],
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "TokenExpiration": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Reservation": {
+      "type": "object",
+      "required": [
+        "ReservationId",
+        "TourId",
+        "CustomerFullName",
+        "CustomerPhone"
+      ],
+      "properties": {
+        "ReservationId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "TourId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "CustomerFullName": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 0
+        },
+        "CustomerPhone": {
+          "type": "string",
+          "maxLength": 15,
+          "minLength": 0
+        },
+        "Tour": {
+          "$ref": "#/definitions/Tour"
+        }
+      }
+    },
+    "Tour": {
+      "type": "object",
+      "required": [
+        "TourId",
+        "Name",
+        "Description",
+        "Price"
+      ],
+      "properties": {
+        "TourId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Name": {
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 0
+        },
+        "Description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Price": {
+          "type": "number",
+          "format": "decimal"
+        },
+        "Notes": {
+          "type": "string"
+        },
+        "Reservations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Reservation"
+          }
+        }
+      }
+    },
+    "TourSearchRequestDto": {
+      "type": "object",
+      "required": [
+        "MinPrice",
+        "MaxPrice"
+      ],
+      "properties": {
+        "MinPrice": {
+          "type": "number",
+          "format": "decimal"
+        },
+        "MaxPrice": {
+          "type": "number",
+          "format": "decimal"
+        }
+      }
+    }
+  }
+}
